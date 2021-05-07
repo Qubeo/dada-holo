@@ -1,0 +1,29 @@
+[package]
+authors = ["guillem.cordoba@gmail.com"]
+edition = "2018"
+name = "tragedy_of_commons"
+version = "0.0.1"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+name = "tragedy_of_commons"
+
+[dependencies]
+hdk = { git = "https://github.com/holochain/holochain", branch = "develop" }
+derive_more = "0"
+serde = "1"
+chrono = "0.4.19"
+
+
+[dev-dependencies]
+fixt = { git = "https://github.com/holochain/holochain", branch = "develop" }
+holochain_types = { git = "https://github.com/holochain/holochain", branch = "develop" }
+holochain_zome_types = { git = "https://github.com/holochain/holochain", branch = "develop" }
+mockall = { version = "0.9"}
+
+[features]
+default = []
+mock = ["hdk/mock"]
+
+
+

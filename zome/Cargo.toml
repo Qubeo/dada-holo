@@ -1,0 +1,10 @@
+[workspace]
+members = [
+  "zomes/tragedy_of_commons",
+]
+
+[profile.dev]
+opt-level = "z"
+
+[profile.release]
+opt-level = "z"
