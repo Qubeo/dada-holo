@@ -12,7 +12,7 @@ pub struct ConversationInfo {
 
 #[hdk_entry(id = "conversation", visibility = "public")]
 pub struct Conversation {
-    pub creator: AgentPubKey,
+    pub author: AgentPubKey,
     // pub created_at: Timestamp,    
     pub conversation_info: ConversationInfo,
 }
@@ -52,7 +52,7 @@ pub fn new_conversation(input: ConversationInput) -> ExternResult<HeaderHashB64>
 
     // Create conversation entry
     let conversation_entry = Conversation {
-        creator: latest_pubkey.clone(),        
+        author: latest_pubkey.clone(),        
         conversation_info: input.conversation_info,
     };
 
@@ -61,6 +61,8 @@ pub fn new_conversation(input: ConversationInput) -> ExternResult<HeaderHashB64>
 
     // Link to creators conversations
     create_link(latest_pubkey.clone().into(), entry_hash_conversation, LinkTag::new("my_conversations"))?;
+
+    // Send a signal of conversation creation
 
     Ok(HeaderHashB64::from(header_hash))
 }

@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@holochain-open-dev/file-storage": "github:holochain-open-dev/file-storage#ui-build"
+  }
+}

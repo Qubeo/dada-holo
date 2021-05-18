@@ -6,3 +6,5 @@ properties: ~
 zomes:
   - name: dada_conversation
     bundled: ../../target/wasm32-unknown-unknown/release/dada_conversation.wasm
+    name: file_storage
+    bundled: ../../target/wasm32-unknown-unknown/release/file_storage.wasm

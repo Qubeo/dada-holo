@@ -3,37 +3,56 @@
   <head>
     <meta charset="utf-8" />
     <style>
+      html {
+        font-family: 'Roboto', sans-serif;
+      }
       body {
         background: #fafafa;
       }
+      html,
+      body,
+      hod-upload-file {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        display: flex;
+      }
     </style>
+    <link
+      href="https://fonts.googleapis.com/css?family=Material+Icons&display=block"
+      rel="stylesheet"
+    />
+    <link
+      href="http://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+      type="text/css"
+    />
   </head>
   <body>
-    <!-- TODO: change the element -->
-    <hod-calendar-event></hod-calendar-event>
+    <upload-files></upload-files>
 
     <script type="module">
-      import { html, render } from 'lit-html';
+      import { UploadFiles, FileStorageService } from '../dist';
       import ConductorApi from '@holochain/conductor-api';
-      import { HodCalendarEvent } from '../dist';
-      import { connectDeps } from '@holochain-open-dev/common';
 
-      (async function () {
-        let store = undefined;
-        const appWebsocket = await ConductorApi.AppWebsocket.connect(
-          'ws://localhost:8888'
-        );
-        const appInfo = await appWebsocket.appInfo({
-          installed_app_id: 'test-app',
-        });
+      ConductorApi.AppWebsocket.connect('ws://localhost:8888').then(
+        async appWebsocket => {
+          const appInfo = await appWebsocket.appInfo({
+            installed_app_id: 'test-app',
+          });
 
-        const cellId = appInfo.cell_data[0].cell_id;
+          const cellId = appInfo.cell_data[0].cell_id;
 
-        customElements.define(
-          'hod-calendar-event',
-          connectDeps(HodCalendarEvent, { appWebsocket, cellId })
-        );
-      })();
+          customElements.define(
+            'upload-files',
+            class extends UploadFiles {
+              get _fileStorageService() {
+                return new FileStorageService(appWebsocket, cellId);
+              }
+            }
+          );
+        }
+      );
     </script>
   </body>
 </html>

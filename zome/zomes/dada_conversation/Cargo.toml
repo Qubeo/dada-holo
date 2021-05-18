@@ -10,6 +10,7 @@ name = "tragedy_of_commons"
 
 [dependencies]
 hdk = { git = "https://github.com/holochain/holochain", branch = "develop" }
+file_storage = {git = "https://github.com/holochain-open-dev/file-storage", package = "file_storage"}
 derive_more = "0"
 serde = "1"
 chrono = "0.4.19"
